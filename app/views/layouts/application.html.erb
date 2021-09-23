@@ -4,45 +4,62 @@
     <title>Bookers2</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <script src="https://kit.fontawesome.com/cdb5d19469.js" crossorigin="anonymous"></script>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-      <li>
-        <%= link_to "Bookers", destroy_user_session_path, method: :delete %>
-      </li>
-    <% if user_signed_in? %>
-     
-      <li>
-        <%= link_to "Home", user_path(current_user.id) %>
-      </li>
-      <li>
-        <%= link_to "Users", users_path %>
-      </li>
-      <li>
-        <%= link_to "Books", books_path %>
-      </li>
-      <li>
-        <%= link_to "Logout", destroy_user_session_path, method: :delete %>
-      </li>
-    <% else %>
-      <li>
-        <%= link_to "Home", root_path %>
-      </li>
-      <li>
-        <%= link_to "About", about_path %>
-      </li>
-      <li>
-        <%= link_to "sign up", new_user_registration_path %>
-      </li>
-      <li>
-        <%= link_to "Login", new_user_session_path %>
-      </li>
-    <% end %>
+  <body class="d-flex flex-column vh-100">
+    <header class="shadow-sm">
+      <nav class="navbar navbar-expand-lg navbar-light">
+        <ul class="nav-list">
+          <% if user_signed_in? %>
+          <li class="nav-item">
+            <%= link_to "Bookers", root_path %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Home", user_path(current_user.id) %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Users", users_path %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Books", books_path %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Logout", destroy_user_session_path, method: :delete %>
+          </li>
+          <% else %>
+          <li class="nav-item">
+            <%= link_to "Bookers", destroy_user_session_path, method: :delete %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Home", root_path %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "About", about_path %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "sign up", new_user_registration_path %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Login", new_user_session_path %>
+          </li>
+          <% end %>
+        </ul>
+        <div class="social">
+          <i class="fas fa-bars"></i>
+        </div>
+      </nav>
+    </header>
 
-    <%= yield %>
+    <main>
+      <%= yield %>
+    </main>
+
+    <footer>CopyRight Infratop.inc</footer>
+
   </body>
-  <footer>CopyRight Infratop.inc</footer>
+
 </html>

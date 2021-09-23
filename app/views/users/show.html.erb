@@ -1,34 +1,36 @@
-<h1>New Book</h1>
-<%= form_with model: @book, local:true do |f| %>
-  <h4>Title</h4>
-  <%= f.text_field :title %>
-  <h4>Opinion</h4>
-  <%= f.text_field :body %>
-  <%= f.submit "Create Book" %>
-<% end %>
-
-
-<h1>Books</h1>
-<table>
- <thead>
-  <tr>
-   <th></th>
-   <th>Title</th>
-   <th>Opinion</th>
-  </tr>
- </thead>
- 
- <% @books.each do |book|%>
- <tbody>
-  <tr>
-   <td><%= attachment_image_tag @user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg" %></td>
-   <td>
-    <%= link_to book_path(book.id) do %>
-     <%= book.title %>
-    <% end %>  
-   </td>
-   <td><%= book.body %></td>
-  </tr>
- </tbody>
- <% end %>
-</table>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-4">
+      <%= render "books/sidebar", user: @user, book: @new_book %>
+    </div>
+    <div class="col-lg-8">
+      <table class="table table-striped">
+        <h1>Books</h1>
+        <thead>
+          <tr>
+            <th></th>
+            <th>Title</th>
+            <th>Opinion</th>
+          </tr>
+        </thead>
+        <% @books.each do |book| %>
+        <tbody>
+          <tr>
+            <td>
+              <%= link_to user_path do %>
+                <%= attachment_image_tag @user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg" %>
+              <% end %>
+            </td>
+            <td>
+              <%= link_to book_path(book.id) do %>
+                <%= book.title %>
+              <% end %>  
+            </td>
+            <td><%= book.body %></td>
+          </tr>
+        </tbody>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>

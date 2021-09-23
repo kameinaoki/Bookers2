@@ -1,26 +1,32 @@
-<h1>New Book</h1>
-<%= form_with model: @book, local:true do |f| %>
-  <h4>Title</h4>
-  <%= f.text_field :title %>
-  <h4>Opinion</h4>
-  <%= f.text_field :body %>
-  <%= f.submit "Create Book" %>
-<% end %>
-
-
-<h1>Book detail</h1>
-<table>
-  <tbody>
+<div class="container">
+ <div class="row">
+  <div class="col-lg-4">
+   <%= render "books/sidebar", user: @book.user, book: @new_book %>
+  </div>
+ <div class="col-lg-8">
+  <table class="table table-striped">
+　 <h1>Book detail</h1>
+   <tbody>
     <tr>
-      <td>
-        <%= attachment_image_tag @user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg" %>
-      </td>
-      <td><%= @book.title %></td>
-      <td><%= @book.body %></td>
+     <td>
+       <%= link_to user_path(@book.user.id) do %>
+         <%= attachment_image_tag @book.user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg" %><br />
+         <%= @book.user.name %>
+       <% end %>
+         
+     </td>
+     <td>
+       <%= link_to book_path do %>
+         <%= @book.title %>
+       <% end %>
+     </td>
+     <td><%= @book.body %></td>
       <% if @book.user == current_user %>
-        <td><%= link_to "Edit", edit_book_path(@book) %></td>
-      <td><%= link_to "Destroy", book_path(@book), method: :delete %></td>
+       <td><%= link_to "Edit", edit_book_path(@book) %></td>
+       <td><%= link_to "Destroy", book_path(@book), method: :delete %></td>
       <% end %>
     </tr>
-  </tbody>
-</table>
+   </tbody>
+  </div>
+ </div>
+</div>

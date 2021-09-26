@@ -1,32 +1,35 @@
+<%= flash[:create] %>
+<%= flash[:bookupdate] %>
+
 <div class="container">
- <div class="row">
-  <div class="col-lg-4">
-   <%= render "books/sidebar", user: @book.user, book: @new_book %>
+  <div class="row">
+    <div class="col-md-3">
+     <%= render "books/sidebar", user: @book.user, book: @new_book %>
+    </div>
+    <div class="col-md-8 offset-md-1">
+      <table class="table table-striped">
+　      <h1>Book detail</h1>
+        <tbody>
+          <tr>
+            <td>
+              <%= link_to user_path(@book.user.id) do %>
+                <%= attachment_image_tag @book.user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg" %><br />
+                <%= @book.user.name %>
+              <% end %>
+            </td>
+            <td>
+              <%= link_to book_path do %>
+                <%= @book.title %>
+              <% end %>
+            </td>
+            <td><%= @book.body %></td>
+            <% if @book.user == current_user %>
+              <td><%= link_to "Edit", edit_book_path(@book) %></td>
+              <td><%= link_to "Destroy", book_path(@book), method: :delete %></td>
+            <% end %>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
- <div class="col-lg-8">
-  <table class="table table-striped">
-　 <h1>Book detail</h1>
-   <tbody>
-    <tr>
-     <td>
-       <%= link_to user_path(@book.user.id) do %>
-         <%= attachment_image_tag @book.user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg" %><br />
-         <%= @book.user.name %>
-       <% end %>
-         
-     </td>
-     <td>
-       <%= link_to book_path do %>
-         <%= @book.title %>
-       <% end %>
-     </td>
-     <td><%= @book.body %></td>
-      <% if @book.user == current_user %>
-       <td><%= link_to "Edit", edit_book_path(@book) %></td>
-       <td><%= link_to "Destroy", book_path(@book), method: :delete %></td>
-      <% end %>
-    </tr>
-   </tbody>
-  </div>
- </div>
 </div>

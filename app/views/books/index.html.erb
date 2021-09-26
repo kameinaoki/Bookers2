@@ -1,32 +1,45 @@
+<% if @book.errors.any? %>
+  <%= @book.errors.count %>error prohibited this odj from being saved:
+  <% @book.errors.full_messages.each do |message| %>
+    <%= message %>
+  <% end %>
+<% end %>
+    
+
 <div class="container">
   <div class="row">
-    <div class="col-lg-4">
+    <div class="col-md-3">
       <%= render "books/sidebar", user: @user, book: @book %>
     </div>
-  <div class="col-lg-8">
-    <table class="table table-striped">
-      <h1>Books</h1>
-      <thead>
-       <tr>
-        <th></th>
-        <th>Title</th>
-        <th>Opinion</th>
-       </tr>
-      </thead>
-      <% @books.each do |book| %>
-      <tbody>
-       <tr>
-        <td><%= attachment_image_tag @user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg" %></td>
-        <td>
-         <%= link_to book_path(book.id) do %>
-          <%= book.title %>
-         <% end %>
-        </td>
-        <td><%= book.body %></td>
-       </tr>
-      </tbody>
-      <% end %>
-     </table>
+    <div class="col-md-8 offset-md-1">
+      <table class="table table-striped">
+        <h1>Books</h1>
+        <thead>
+          <tr>
+            <th></th>
+            <th>Title</th>
+            <th>Opinion</th>
+          </tr>
+        </thead>
+        <% @books.each do |book| %>
+        <% user = User.find_by(id: book.user_id) %>
+        <tbody>
+          <tr>
+            <td>
+              <%= link_to user_path(book.user_id) do %>
+                <%= attachment_image_tag user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg" %>
+              <% end %>
+            </td>
+            <td>
+              <%= link_to book_path(book.id) do %>
+                <%= book.title %>
+              <% end %>
+            </td>
+            <td><%= book.body %></td>
+          </tr>
+        </tbody>
+        <% end %>
+      </table>
+    </div>
   </div>
- </div>
 </div>

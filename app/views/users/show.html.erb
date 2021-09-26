@@ -1,9 +1,11 @@
+<%= flash[:signup] %>
+
 <div class="container">
   <div class="row">
-    <div class="col-lg-4">
+    <div class="col-md-3">
       <%= render "books/sidebar", user: @user, book: @new_book %>
     </div>
-    <div class="col-lg-8">
+    <div class="col-md-8 offset-md-1">
       <table class="table table-striped">
         <h1>Books</h1>
         <thead>

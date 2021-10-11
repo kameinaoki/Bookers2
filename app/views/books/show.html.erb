@@ -27,19 +27,7 @@
               <td><%= link_to "Edit", edit_book_path(@book) %></td>
               <td><%= link_to "Destroy", book_path(@book), method: :delete %></td>
             <% end %>
-            <% if @book.favorited_by?(current_user) %>
-              <td>
-                <%= link_to book_favorites_path(@book), method: :delete do %>
-                  ♥<%= @book.favorites.count %>
-                <% end %>
-              </td>
-            <% else %>
-              <td>
-                <%= link_to book_favorites_path(@book), method: :post do %>
-                  ♡<%= @book.favorites.count %>
-                <% end %>
-              </td>
-            <% end %>
+            <td class="book_<%= @book.id %>"><%= render "favorites/favorite-btn", book: @book %></td>
             <td>コメント数：<%= @book.book_comments.count %></td>
           </tr>
         </tbody>
@@ -55,7 +43,7 @@
         <% end %>
       </div>
       <div>
-        <%= form_with(model:[@book, @book_comment], local: true) do |f| %>
+        <%= form_with model:[@book, @book_comment] do |f| %>
           <%= f.text_area :comment, row:"5" %>
           <%= f.submit "送信" %>
         <% end %>
